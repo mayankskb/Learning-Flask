@@ -1,0 +1,10 @@
+Template Inheritance
+
+
+--->> {% extends "base.html" %}
+Extends a base template
+Must be first tag
+
+
+--->> {% block content %} ...{% endblock %}
+Defines a block that is to be overwritten by the child
