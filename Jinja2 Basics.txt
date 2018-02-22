@@ -1,0 +1,13 @@
+Jinja2 Basics
+
+{{ var }} renders values of var
+  render_template(index.html, var = "hello")
+
+Dot notation : {{ var.x }}
+  Lookup an attribute x on var
+  Lookup an item x in var
+  Not found?  Empty output
+
+  We can call functions on objects as well:
+  {{ var.fn() }}
+    can pass arguments
