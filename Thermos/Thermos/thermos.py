@@ -9,13 +9,13 @@ class User:
         self.occupation = occupation
 
     def Firstname(self):
-        return "First Name : {} ".format(self.firstname)
+        return "{} ".format(self.firstname)
 
     def Lastname(self):
-        return "Last Name : {}".format(self.lastname)
+        return "{}".format(self.lastname)
 
     def Occupation(self):
-        return "Occupation : {}".format(self.occupation)
+        return "{}".format(self.occupation)
 
 @app.route('/')
 @app.route('/index')
