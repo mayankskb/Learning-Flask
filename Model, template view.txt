@@ -1,0 +1,17 @@
+Model Template view
+
+--->>Model
+Holds Data
+Usually represent rows in database table
+Flask leaves it with you
+sqlite3, SQLAlchemy
+
+
+--->>Template (view of MVC)
+Used to generate HTML
+Flask includes jinja2
+
+
+--->>View (controller of MVC)
+A function that generates a HTTP response for a HTTP request
+Mapped to one or more URL 
