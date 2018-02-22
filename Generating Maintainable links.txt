@@ -1,0 +1,14 @@
+Generating Maintainable Links
+
+--->> url_for(view)
+generates a URL to the given view
+can pass argumemts to the view
+flask uses url_map variable to map url
+
+
+--->> url_foris available in template context
+
+
+--->> Why use url_for instead of a simple link?
+More maintainable : URL is only defined in @app.route call
+Handle escaping of a special characters and Unicode data transparently
