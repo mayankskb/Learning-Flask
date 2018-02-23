@@ -1,0 +1,18 @@
+Session and Flashes
+
+
+--->> Session Object
+Remember data between requests
+Works by setting a cookie
+Data associated with the user's HTTP Session
+Is a flask context global, like request
+
+
+--->> Using the Session
+Need to set Flask.secret_key for creating cookies
+Store values in it like a dict
+
+
+--->> Flashing the message
+Use flash()
+Availbale in template through get_flashed_message()
