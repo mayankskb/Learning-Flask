@@ -1,0 +1,47 @@
+Using WTForms
+
+--->> Flask -WTF Form Classes
+
+-> Simple Python class inheriting from flask_wtf.Form
+
+-> Fields
+Many field classes for different kind of input
+StringField, DataRequired, DateField, BooleanField, SelectField, HiddenField, etc.
+Note: flask_wtf include HTML5 forms in flask.ext.wtf.HTML5
+
+-> Pass a list of validators to the fields
+url = URLField('url', validators=[DataRequired(), url()])
+
+
+--->> WTForms in Views
+
+-> Create a form instance
+form  = BookmarkForm()
+This will be filled with any data from the request, if any
+
+-> Check: was the form submitted and does it validate?
+form.validate_on_submit()
+
+-> Get data from fields
+url = form.url.data
+
+-> Make sure to pass the form to the template
+render_template('add.html', form=form)
+
+
+--->> WTForms in Template
+
+-> Don't forget CSRF protection
+{{form.hidden_tag()}}
+Need a secret key
+
+CSRF - Cross Side Request Forgery Attacks.
+without this the WTForms will not let you submit the form
+
+-> Render fields
+{{ form.url }}
+Keyword arguments will become HTMl attributes
+{{ form.url(class = "fancy", size = 50) }}
+
+-> Errors
+{% for error in form.url.errors %}

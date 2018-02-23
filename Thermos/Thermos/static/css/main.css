@@ -172,14 +172,21 @@ article.flashes{
   margin-bottom: 1em;
 }
 
+.error, .error input{
+  color:red;
+}
 
+p.error td ul{
+  margin-top: 0;
+}
 
+p.submit button{
+  margin-top: 20px;
+}
 
-
-
-
-
-
+input, button{
+  margin-left: 10px;
+}
 
 
 

@@ -9,11 +9,25 @@ Thermos -- Add a URL
 			<h1> Add a new URL </h1>
 				<article>
 						<form action = "" method="post">
-								<p>
+								{{form.hidden_tag()}}
+								<p {% if form.url.errors %} class = "error" {% endif %}>
 											Please Enter your Bookmark here :
-											<input type="text" name="url">
+											{{form.url(size = 50)}}
+								</p>
+								<p class = "error" >
+											<ul>
+													{% for error in form.url.errors %}
+														<li>
+																{{ error }}
+														</li>
+													{% endfor %}
+											</ul>
 								</p>
 								<p>
+											Add an optional description :
+											{{form.description(size = 50)}}
+								</p>
+								<p class = 'submit'>
 											<button type="submit">Submit</button>
 								</p>
 						</form>

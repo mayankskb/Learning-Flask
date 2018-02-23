@@ -2,40 +2,20 @@ from flask import Flask, render_template, url_for, request, redirect, flash
 from datetime import datetime
 from logging import DEBUG
 
+from Users import User
+from forms import BookmarkForm
+
 app  = Flask(__name__)
 app.logger.setLevel(DEBUG)
 app.config['SECRET_KEY'] = 'kjW\xf5\t\xa0\x060f;n:]\x02\xce\xd9O\xa1\xd1\xc0[\xc2\xb7\xfa'
 
-class User:
-    def __init__(self, firstname, lastname, occupation, education, belonging):
-        self.firstname = firstname
-        self.lastname = lastname
-        self.occupation = occupation
-        self.education = education
-        self.belonging = belonging
-
-    def Firstname(self):
-        return "{} ".format(self.firstname)
-
-    def Lastname(self):
-        return "{}".format(self.lastname)
-
-    def Occupation(self):
-        return "{}".format(self.occupation)
-
-    def Education(self):
-            return "{} ".format(self.education)
-
-    def Belonging(self):
-        return "{} ".format(self.belonging)
-
-
 bookmarks = []
 
-def store_bookmark(url):
+def store_bookmark(url, description):
     bookmarks.append(dict(
         url = url,
-        user = "mayank",
+        description = description,
+        user = "Mayank",
         date = datetime.utcnow()
     ))
 
@@ -50,13 +30,26 @@ def index():
 
 @app.route('/add', methods = ['GET', 'POST'])
 def add():
-    if request.method == "POST":
-        url = request.form['url']
-        store_bookmark(url)
+    form = BookmarkForm()
+    if form.validate_on_submit():
+        url = form.url.data
+        description = form.description.data
+        store_bookmark(url, description)
         app.logger.debug('stored url : ' + url)
-        flash("Stored bookmark '{}'".format(url))
+        app.logger.debug('description : ' + description)
+        flash("Stored bookmark '{}'".format(description))
         return redirect(url_for('index'))
-    return render_template('add.html')
+    return render_template('add.html', form = form)
+
+#@app.route('/add', methods = ['GET', 'POST'])
+#def add():
+#    if request.method == "POST":
+#        url = request.form['url']
+#        store_bookmark(url)
+#        app.logger.debug('stored url : ' + url)
+#        flash("Stored bookmark '{}'".format(url))
+#        return redirect(url_for('index'))
+#    return render_template('add.html')
 
 
 @app.errorhandler(404)
