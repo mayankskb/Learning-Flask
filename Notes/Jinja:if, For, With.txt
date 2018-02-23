@@ -1,0 +1,12 @@
+Jinja : If, For, With
+
+--->> {% if expression %} ... {% else %} ... {% endif %}
+Cab also use {% elif %}
+
+
+--->> {% for var in expression %} ... {% endfor %}
+Jinja provide a loop variable inside for
+this variable is used to know the number of the current iteration, or other things about the loop
+
+
+--->> {% with var = expression %} ... {% endwith %}
