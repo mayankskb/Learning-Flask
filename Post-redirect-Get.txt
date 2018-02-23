@@ -1,0 +1,39 @@
+Post - Redirect - Get
+
+--->> Form page view(GET)
+receives the form templates and displays to the User
+User fills the form and submit it and it sends a POST request.
+At server side you can do validation.
+
+On successfully form submission user is redirected to another page.
+On validation error the same form template is rendered to the user.
+
+
+The view function of the form somewhat looks like
+
+@app.route('/add', methods = ['GET', 'POST'])
+def add():
+    if request.method == "POST":
+        url = request.form['url']
+        store_bookmark(url)
+        app.logger.debug('stored url : ' + url)
+        return redirect(url_for('index'))
+    return render_template('add.html')
+
+
+ --->> The Request Object
+
+ It is kind of a magic flask feature, it's globally available but doesnot represent same thing globally. Flaks make sure that when an HTTP request is active then request object is bound to the current request.
+
+ -> Globally available
+ But temporaily bound to current request
+ Dont't use it when there is no active request
+
+ -> Some attribute of the request Object
+ Name       Description
+ form       Form data from POST or PUT request
+ args       Contents of the query string(The part in the URL after the question mark)
+ cookies    Cookies transmitted with the request
+ headers    The incoming request headers as a dictionary like object
+ files      Files upload as part of POST or PUT request
+ method     The current request method (POST, GET, etc)
