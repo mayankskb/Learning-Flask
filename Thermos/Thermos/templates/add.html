@@ -1,36 +1,59 @@
 {% extends "base.html" %}
+{% from "form_macros.html" import render_field %}
 
 {% block title %}
 Thermos -- Add a URL
 {% endblock %}
 
 {% block content %}
+
 		<section>
-			<h1> Add a new URL </h1>
-				<article>
-						<form action = "" method="post">
-								{{form.hidden_tag()}}
-								<p {% if form.url.errors %} class = "error" {% endif %}>
-											Please Enter your Bookmark here :
-											{{form.url(size = 50)}}
-								</p>
-								<p class = "error" >
-											<ul>
-													{% for error in form.url.errors %}
-														<li>
-																{{ error }}
-														</li>
-													{% endfor %}
-											</ul>
-								</p>
-								<p>
-											Add an optional description :
-											{{form.description(size = 50)}}
-								</p>
-								<p class = 'submit'>
-											<button type="submit">Submit</button>
-								</p>
-						</form>
-				<article>
-	  </section>
+				<h1> Add a new URL </h1>
+				<form action="" method="post">
+						{{ form.hidden_tag() }}
+						<table>
+								{{ render_field(form.url, size = 50) }}
+								{{ render_field(form.description, size = 50) }}
+
+								<tr class = "submit">
+										<td></td>
+										<td><button type = "submit">Submit</button>
+										</td>
+								</tr>
+						</table>
+				</form>
+		</section>
+
 {% endblock %}
+
+
+<!---
+</section>
+		<article>
+				<form action = "" method="post">
+						{{form.hidden_tag()}}
+
+						<p {% if form.url.errors %} class = "error" {% endif %}>
+									Please Enter your Bookmark here :
+									{{form.url(size = 50)}}
+						</p>
+						<p class = "error" >
+									<ul>
+											{% for error in form.url.errors %}
+												<li>
+														{{ error }}
+												</li>
+											{% endfor %}
+									</ul>
+						</p>
+						<p>
+									Add an optional description :
+									{{form.description(size = 50)}}
+						</p>
+						<p class = 'submit'>
+									<button type="submit">Submit</button>
+						</p>
+				</form>
+		<article>
+</section>
+-->

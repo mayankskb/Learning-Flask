@@ -1,0 +1,41 @@
+Model with Flask - SQLAlchemy
+
+--->> Setting up Flask-SQLAlchemy
+
+-> pip install flask_sqlalchemy
+
+-> Import and configure SQLAlchemy
+
+      from flask_sqlalchemy import SQLAlchemy
+      app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///path/to/database'
+      db = SQLAlchemy(app)
+
+-> SQLAlchemy also suports : MySQL, MS SQL, PostgreSQL, Oracle and more.
+
+
+--->> Model class
+
+-> A model class represent a database table
+Every insatnce represents a row in that table
+
+-> Inherit from db.Model
+
+-> Flask-SQLAlchemy
+Takes care of something that plain SQLAlchemy does not.
+Dont have to set __tablename__ for Model
+Query attribute on model used for querying
+
+
+--->> Columns
+
+      id = db.Column(db.Integer, primary_key = True)
+      url = db.Column(db.Text, nullable = False)
+      date = db.Column(db.DateTime, default = datetime.utcnow)
+      description = sb.Column(db.String(300))
+
+-> Defined as class attributes on the Model class
+Name of database column will be name of the attribute
+
+-> Instances of db.Column
+Data type : db.Integer, db.String, etc.
+Options : primary_key, nullable, etc.

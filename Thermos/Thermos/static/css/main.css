@@ -176,11 +176,11 @@ article.flashes{
   color:red;
 }
 
-p.error td ul{
+tr.error td ul{
   margin-top: 0;
 }
 
-p.submit button{
+tr.submit button{
   margin-top: 20px;
 }
 

@@ -1,31 +1,39 @@
-from flask import Flask, render_template, url_for, request, redirect, flash
+import os
 from datetime import datetime
-from logging import DEBUG
 
-from Users import User
+from flask import Flask, render_template, url_for, request, redirect, flash
+from logging import DEBUG
+from flask_sqlalchemy import SQLAlchemy
+
+from author import Author
 from forms import BookmarkForm
+import models
+
+basedir = os.path.abspath(os.path.dirname(__file__))
 
 app  = Flask(__name__)
 app.logger.setLevel(DEBUG)
 app.config['SECRET_KEY'] = 'kjW\xf5\t\xa0\x060f;n:]\x02\xce\xd9O\xa1\xd1\xc0[\xc2\xb7\xfa'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'thermos.db')
+db = SQLAlchemy(app)
+
 
 bookmarks = []
 
-def store_bookmark(url, description):
-    bookmarks.append(dict(
-        url = url,
-        description = description,
-        user = "Mayank",
-        date = datetime.utcnow()
-    ))
+#def store_bookmark(url, description):
+#    bookmarks.append(dict(
+#        url = url,
+#        user = "Mayank",
+#        date = datetime.utcnow()
+#    ))
 
-def new_bookmarks(num):
-    return sorted(bookmarks, key = lambda bm: bm['date'], reverse = True)[:num]
+#def new_bookmarks(num):
+#    return sorted(bookmarks, key = lambda bm: bm['date'], reverse = True)[:num]
 
 @app.route('/')
 @app.route('/index')
 def index():
-    return render_template('index.html', title = "Author Introduction", user = User('Mayank', 'Mishra', 'Data Science Engineer', 'B.Tech Computer Science', 'Shikohabad'), new_bookmarks = new_bookmarks(5))
+    return render_template('index.html', title = "Author Introduction", user = Author('Mayank', 'Mishra', 'Data Science Engineer', 'B.Tech Computer Science', 'Shikohabad'), new_bookmarks = models.Bookmark.newest(5))
 
 
 @app.route('/add', methods = ['GET', 'POST'])
@@ -34,7 +42,10 @@ def add():
     if form.validate_on_submit():
         url = form.url.data
         description = form.description.data
-        store_bookmark(url, description)
+#        store_bookmark(url, description)
+        bm = models.Bookmark(url = url, description = description)
+        db.session.add(bm)
+        db.session.commit()
         app.logger.debug('stored url : ' + url)
         app.logger.debug('description : ' + description)
         flash("Stored bookmark '{}'".format(description))

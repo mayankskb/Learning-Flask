@@ -1,0 +1,31 @@
+Storing Data and Simple Queries
+
+--->> Creating New Data
+
+-> Simply create a new instance of the class
+    bm = new Bookmark(user = u, url = url, description = desc)
+
+-> Add it to the database session
+db.session.add(bm)
+This does not add the data to the database
+It registers the object with the session
+
+-> Don't forget to commit
+db.session.commit()
+Will run a SQL INSERT statement
+
+
+--->> Simple Queries
+
+-> Using the query attribute of a model class
+
+-> Get by primary key:
+    Bookmark.query,get(1)
+
+-> Retrieve all rows:
+    Bookmark.query.all()
+
+-> Select specific rows:
+    Bookmark.query.filter_by(username = 'reindert').first()
+
+    

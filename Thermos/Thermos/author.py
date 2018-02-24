@@ -1,4 +1,4 @@
-class User:
+class Author:
     def __init__(self, firstname, lastname, occupation, education, belonging):
         self.firstname = firstname
         self.lastname = lastname
