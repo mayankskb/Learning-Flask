@@ -1,9 +1,12 @@
 from datetime import datetime
 from sqlalchemy import desc
 
-from thermos import db
+from Thermos import db
 
 class Bookmark(db.Model):
+    __tablename__ = 'Bookmark'
+    __table_args__ = {'extend_existing': True}
+
     id = db.Column(db.Integer, primary_key = True)
     url = db.Column(db.Text, nullable = False)
     date = db.Column(db.DateTime, default = datetime.utcnow)
@@ -19,10 +22,13 @@ class Bookmark(db.Model):
 
 
 class User(db.Model):
+    __tablename__ = 'user'
+    __table_args__ = {'extend_existing': True}
+
     id = db.Column(db.Integer, primary_key = True)
     username = db.Column(db.String(80), unique = True)
     email = db.Column(db.String(120), unique = True)
-    bookmarks = db.relationship('Bookmark', backref = 'user', lazy = 'dynamic')
+    bookmarks = db.relationship('Bookmark', back_populates = 'user', lazy = 'dynamic')
 
     def __repr__(self):
         return "<User {}>".format(self.username)

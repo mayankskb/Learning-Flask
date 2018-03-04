@@ -1,22 +1,13 @@
-import os
+
 from datetime import datetime
 
-from flask import Flask, render_template, url_for, request, redirect, flash
+from flask import render_template, url_for, request, redirect, flash
 from logging import DEBUG
-from flask_sqlalchemy import SQLAlchemy
+
 
 from author import Author
 from forms import BookmarkForm
 
-
-basedir = os.path.abspath(os.path.dirname(__file__))
-app  = Flask(__name__)
-app.logger.setLevel(DEBUG)
-app.config['SECRET_KEY'] = 'kjW\xf5\t\xa0\x060f;n:]\x02\xce\xd9O\xa1\xd1\xc0[\xc2\xb7\xfa'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'thermos.db')
-db = SQLAlchemy(app)
-
-from models import User, Bookmark
 
 bookmarks = []
 
@@ -75,6 +66,3 @@ def page_not_found(e):
 @app.errorhandler(500)
 def server_error(e):
     return render_template('500.html'), 500
-
-if __name__ == "__main__":
-    app.run(debug = True)

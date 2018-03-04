@@ -1,19 +1,14 @@
-from thermos import app, db
+from Thermos import app, db
+from Thermos.models import User
 from flask.ext.script import Manager, prompt_bool
-
-from logging import DEBUG
-
-from thermos import db
-from models import User
-
 
 manager = Manager(app)
 
 @manager.command
 def initdb():
     db.create_all()
-    db.session.add(User(username = 'Mayank', email = 'mishmayank@hotmail.com'))
-    db.session.add(User(username = 'Arjen', email = 'arjen@example.com0'))
+    db.session.add(User(username = 'Mayank', email = 'mishmabhiyank@hotmail.com'))
+    db.session.add(User(username = 'Arjen', email = 'arjen@ebhjbxample.com0'))
     db.session.commit()
     print('Initialized the database')
 

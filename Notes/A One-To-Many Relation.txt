@@ -1,0 +1,34 @@
+A One-To-Many Relation
+
+class Bookmark(db.Model):
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable  = False)
+
+class User(db.Model):
+    bookmarks = db.relationship('Bookmark', backref = 'user', lazy = 'dynamic')
+
+-> db.relationship
+Defines a one to many relation
+First argument gives many side of the relation
+
+-> backref
+Name of the attribute of the related object
+
+-> lazy
+How the related objects should be loaded
+
+
+--->> Lazy Loading Operations
+
+-> lazy = 'select' (default)
+Load the data lazily using a standard select statement
+
+-> lazy = 'joined'
+Load the data in the same query as the parent using a JOIN statement
+
+-> lazy = 'subquery'
+like 'joined' but use a subquery
+
+-> lazy = 'dynamic'
+useful if you have many items
+returns a query object which you can further refine before loading items
+usually what you want if you expect more than a handful of items
