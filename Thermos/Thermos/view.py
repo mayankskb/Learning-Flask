@@ -2,7 +2,7 @@ import os
 
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
-from flask_login import LoginManager, login_required, login_user
+from flask_login import LoginManager, login_required, login_user, current_user, logout_user
 
 from flask import render_template, url_for, request, redirect, flash
 
@@ -53,7 +53,8 @@ def add():
     if form.validate_on_submit():
         url = form.url.data
         description = form.description.data
-        bm = Bookmark(user = logged_in_user(), url = url, description = description)
+        bm = Bookmark(user = current_user, url = url, description = description)
+#        bm = Bookmark(user = logged_in_user(), url = url, description = description)
         db.session.add(bm)
         db.session.commit()
         flash("Stored bookmark '{}'".format(description))
@@ -77,6 +78,11 @@ def login():
             return redirect(request.args.get('next') or url_for('index'))
         flash('Incorrect username or password.')
     return render_template("login.html", form = form)
+
+@app.route('/logout')
+def logout():
+    logout_user()
+    return redirect(url_for('index'))
 
 @app.errorhandler(404)
 def page_not_found(e):
