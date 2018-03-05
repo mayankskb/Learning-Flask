@@ -1,0 +1,14 @@
+Flask - SQL Alchemy Helpers
+
+@app.route('/user/<username>')
+def user(username):
+
+-> first_or_404()
+-> get_or_404()
+
+
+--->> Simple Database Administration
+
+-> db.create_all()
+-> db.drop_all()
+-> Using flask - script to create an admin interface
