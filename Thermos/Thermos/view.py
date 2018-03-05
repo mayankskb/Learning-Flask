@@ -1,13 +1,31 @@
+import os
+
+from flask import Flask
+from flask_sqlalchemy import SQLAlchemy
+
 from flask import render_template, url_for, request, redirect, flash
 
-from Thermos import app, db
 from author import Author
 from forms import BookmarkForm
-from Thermos.models import User, Bookmark
+
+################################################################################
+#                               APP CONFIGURATIONS                             #
+################################################################################
+app = Flask(__name__)
+
+basedir = os.path.abspath(os.path.dirname(__file__))
+
+# Configure database
+app.config['SECRET_KEY'] = 'kjW\xf5\t\xa0\x060f;n:]\x02\xce\xd9O\xa1\xd1\xc0[\xc2\xb7\xfa'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'thermos.db')
+app.config['DEBUG'] = True
+db = SQLAlchemy(app)
+
+from models import User, Bookmark
 
 #Fake login
 def logged_in_user():
-    return User.query.filter_by(username = 'Ramesh').first()
+    return User.query.filter_by(username = 'Mayank').first()
 
 @app.route('/')
 @app.route('/index')
