@@ -2,12 +2,13 @@ import os
 
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
+
 from flask_login import LoginManager, login_required, login_user, current_user, logout_user
+
 
 from flask import render_template, url_for, request, redirect, flash
 
 from author import Author
-from forms import BookmarkForm, LoginForm
 
 ################################################################################
 #                               APP CONFIGURATIONS                             #
@@ -29,6 +30,7 @@ login_manager.login_view = "login"
 login_manager.init_app(app)
 
 from models import User, Bookmark
+from forms import BookmarkForm, LoginForm, SignUp
 
 #Fake login
 #def logged_in_user():
@@ -71,11 +73,12 @@ def login():
     form = LoginForm()
     if form.validate_on_submit():
         #login user and validate user...
-        user = User.query.filter_by(username = form.username.data).first()
-        if user is not None:
+#       user = User.query.filter_by(username = form.username.data).first()
+        user = User.get_by_username(form.username.data)
+        if user is not None and user.check_password(form.password.data):
             login_user(user, form.remember_me.data)
             flash("Logged in successfully as {}".format(user.username))
-            return redirect(request.args.get('next') or url_for('index'))
+            return redirect(request.args.get('next') or url_for('user', username = user.username))
         flash('Incorrect username or password.')
     return render_template("login.html", form = form)
 
@@ -83,6 +86,17 @@ def login():
 def logout():
     logout_user()
     return redirect(url_for('index'))
+
+@app.route('/signup', methods = ['GET','POST'])
+def signup():
+    form = SignUp()
+    if form.validate_on_submit():
+        user = User(email = form.email.data, username = form.username.data, password = form.password.data)
+        db.session.add(user)
+        db.session.commit()
+        flash('Welcome, {}! Please Login.'.format(user.username))
+        return redirect(url_for('login'))
+    return render_template('signup.html', form = form)
 
 @app.errorhandler(404)
 def page_not_found(e):
