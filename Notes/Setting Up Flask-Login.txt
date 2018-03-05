@@ -1,0 +1,53 @@
+Setting up Flask - Login
+
+pip install flask-login
+
+Import and Configure
+
+      from flask_login import LoginManager
+
+      login_manager = LoginManager()
+      login_manager.session_protection = "strong"
+      login_manager.login_view = "login"
+      login_manager.init_app(app)
+
+
+-> session_protection is set to strong to protect the session from hijacking
+
+-> login_view - what the name of the our login view function is
+Need to do this so that flask-login can redirect user to that view when they try to access a page that is restricted to logged_in user only.
+
+-> init_app and pass in our flask app object
+
+
+--->> Setting Up the User Class
+
+-> Declare a user_loader
+
+Tells Flask-login how to retrieve a user by id
+id is stored in the HTTP session
+
+      @login_manager.user_loader
+      def load_user(userid):
+          return User.query.get(int(userid))
+
+-> Inherit from UserMixin
+
+default implemantation for is_authenticated, get_id, etc.
+
+      class User(db.Model, UserMixin):
+
+
+--->> Using Flask-Login
+
+Mark views with @login_required
+
+The current_user variable holds teh curently logged_in user
+
+Log a user in with login_user()
+    Optional Argument : remember_me(bool)
+
+Log them out using logout_user()
+
+In a view :
+      {% if current_user.is_authenticated() %}
