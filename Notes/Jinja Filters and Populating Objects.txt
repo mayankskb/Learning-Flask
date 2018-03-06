@@ -1,0 +1,39 @@
+Jinja Filters and Populating Objects
+
+--->> Jinja2 Filters
+
+-> Filters are special functions
+Applied in a variable expression
+can be chained using Pipe '|' symbol
+
+-> {{ title|trnucate(10) }}
+Will truncate the contents of the varible title
+
+-> {{ title|trim|upper|truncate(10) }}
+Strip white spaces from title, then convert to uppercase, then truncate
+
+-> Jinja provides builtin filter for many common operations
+Can also add custom filters with app.template_filter decorator
+Flask add one : tojson
+
+
+--->> Jinja2: Include and With
+
+-> {% include 'others.html' %}
+renders other.html and includes the output in the current template
+useful with templates that generate HTML fragements
+included template has access to context variable
+
+-> {% with x=42 %}
+creates a new scope with variable x in it.
+
+
+--->> Populate Forms and Models
+
+-> form = BookmarkForm(obj = bookmark)
+Use the obj argument to populate a form with data from an Object
+For example a model instance
+If request data is present, that will be used instead of obj
+
+-> form.populate_obj(bookmark)
+Use populate_obj to populate a Model instance from an object
