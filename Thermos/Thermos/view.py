@@ -76,7 +76,7 @@ def edit_bookmark(bookmark_id):
     if form.validate_on_submit():
         form.populate_obj(bookmark)
         db.session.commit()
-        flash("Stored bookmark '{}'".format(description))
+        flash("Stored bookmark '{}'".format(bookmark.description))
         return redirect(url_for('user', username = current_user.username))
     return render_template('bookmark_form.html', form = form, title = 'Edit Bookmark')
 
