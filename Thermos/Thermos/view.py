@@ -6,7 +6,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, login_required, login_user, current_user, logout_user
 from flask.ext.moment import Moment
 
-from flask import render_template, url_for, request, redirect, flash
+from flask import render_template, url_for, request, redirect, flash, abort
 
 from author import Author
 
@@ -64,7 +64,21 @@ def add():
         db.session.commit()
         flash("Stored bookmark '{}'".format(description))
         return redirect(url_for('index'))
-    return render_template('add.html', form = form)
+    return render_template('bookmark_form.html', form = form, title = 'Add a Bookmark')
+
+@app.route('/edit/{<int:bookmark_id>}', methods = ['GET', 'POST'])
+@login_required
+def edit_bookmark(bookmark_id):
+    bookmark = Bookmark.query.get_or_404(bookmark_id)
+    if current_user != bookmark.user:
+        abort(403)
+    form = BookmarkForm(obj = bookmark)
+    if form.validate_on_submit():
+        form.populate_obj(bookmark)
+        db.session.commit()
+        flash("Stored bookmark '{}'".format(description))
+        return redirect(url_for('user', username = current_user.username))
+    return render_template('bookmark_form.html', form = form, title = 'Edit Bookmark')
 
 @app.route('/user/<username>')
 def user(username):
