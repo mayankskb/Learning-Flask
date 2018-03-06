@@ -4,7 +4,7 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 
 from flask_login import LoginManager, login_required, login_user, current_user, logout_user
-
+from flask.ext.moment import Moment
 
 from flask import render_template, url_for, request, redirect, flash
 
@@ -28,6 +28,9 @@ login_manager = LoginManager()
 login_manager.session_protection = "strong"
 login_manager.login_view = "login"
 login_manager.init_app(app)
+
+#for displaying the timestamps
+moment = Moment(app)
 
 from models import User, Bookmark
 from forms import BookmarkForm, LoginForm, SignUp
