@@ -22,7 +22,7 @@ Using the appropriate Python version:
 virtualenv --python=/usr/bin/pythonX.Y /home/myusername/path/to/virtualenv  
 or, with virtualenvwrappper  
   
-mkvirtualenv --python=/usr/bin/pythonX.Y my-virtualenv-name  
+mkvirtualenv --python=/usr/bin/pythonX.Y my-virtualenv-name
 
 2) Reinstall your packages  
   
