@@ -31,7 +31,7 @@ login_manager.login_view = "login"
 login_manager.init_app(app)
 
 #enable debug toolbar
-toolbar = DebugToobarExtension(app)
+#toolbar = DebugToobarExtension(app)
 
 #for displaying the timestamps
 moment = Moment(app)
