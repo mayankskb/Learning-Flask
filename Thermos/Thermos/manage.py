@@ -1,5 +1,5 @@
 from view import app, db
-from models import User, Bookmark
+from models import User, Bookmark, Tag
 from flask.ext.script import Manager, prompt_bool
 from flask.ext.migrate import Migrate, MigrateCommand
 
@@ -9,12 +9,14 @@ migrate = Migrate(app,db)
 manager.add_command('db', MigrateCommand)
 
 
-@manager.command
-def initdb():
-    print('Initializing ......')
-    db.create_all()
-    print('Initialized the database')
+#@manager.command
+#def initdb():
+#    print('Initializing ......')
+#    db.create_all()
+#    print('Initialized the database')
 
+#@manager.command
+#def insert_data()
 
 @manager.command
 def dropdb():
