@@ -1,0 +1,14 @@
+Blueprints
+
+--->> A blueprint of how to construct or extend an application
+Not an app, but like app
+Can provide views and/or resources like static files or templates, or models, etc.
+
+
+--->> Purpose
+Break up growing application into modules
+Re-usable modules that can registered on multiple apps
+
+
+--->> Blueprints don't have to be in their own package
+But most of the time, they will be
