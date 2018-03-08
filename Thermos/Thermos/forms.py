@@ -7,7 +7,8 @@ from models import User
 
 class BookmarkForm(Form):
     url = URLField('The URL for your bookmark : ')
-    description = StringField('Add an optional description')
+    description = StringField('Add an optional description : ')
+    tags = StringField('Tags : ', validators = [Regexp(r'^[A-Za-z0-9,]*$', message = 'Tags can only contains letters and numbers')])
 
     def validate(self):
 
@@ -19,6 +20,12 @@ class BookmarkForm(Form):
 
         if not self.description.data:
             self.description.data = self.url.data
+
+        #filter out empty and duplicated tag names
+        stripped = [t.strip() for t in self.tags.data.split(',')]
+        not_empty = [tag for tag in stripped if tag]
+        tagset = set(not_empty)
+        self.tags.data = ','.join(tagset)
 
         return True
 

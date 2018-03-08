@@ -6,9 +6,10 @@
         <title>{% block title %}{% endblock %}</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-
-        <link rel="stylesheet" href="{{url_for('static', filename = 'css/normalize.min.css')}}">
-        <link rel="stylesheet" href="{{url_for('static', filename = 'css/main.css')}}">
+        {% block styles %}
+            <link rel="stylesheet" href="{{url_for('static', filename = 'css/normalize.min.css')}}">
+            <link rel="stylesheet" href="{{url_for('static', filename = 'css/main.css')}}">
+        {% endblock %}
 
         <script src="{{url_for('static', filename = 'js/vendor/modernizr-2.8.3-respond-1.4.2.min.js')}}"></script>
     </head>
@@ -54,8 +55,10 @@
 
                 {% block sidebar %}
                     <aside>
-                        <h3>About</h3>
-                        <p>This site facilitates you to add bookmark here and let yourself free from remembering the bookmarks and their details. Come, Let us serve you to make life free from hassle and your data is secured with us.</p>
+                        <h3>Tags</h3>
+                        {% for t in all_tags() %}
+                              <a href = '{{ url_for("tag", name = t) }}'>{{ t }}</a>
+                        {% endfor %}                    
                     </aside>
                 {% endblock %}
             </div> <!-- #main -->
@@ -74,6 +77,9 @@
 -->
         {{ moment.include_jquery() }}
         {{ moment.include_moment() }}
+
+        {% block scripts %}
+        {% endblock %}
 
     </body>
 </html>
