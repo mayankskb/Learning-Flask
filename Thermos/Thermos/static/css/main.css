@@ -232,6 +232,12 @@ ul.bookmarks li{
   padding: 12m 0;
 }
 
+.bookmarks {
+  padding-bottom: .5em;
+  border-top: 1px solid #7EA6BF;
+  padding: 1em 0;
+}
+
 a.header{
   color: #326786;
   text-decoration: none;
