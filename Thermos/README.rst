@@ -19,11 +19,11 @@ This directory contains the following:
 1) Rebuild a new virtualenv  
 Using the appropriate Python version:  
   
-virtualenv --python=/usr/bin/pythonX.Y /home/myusername/path/to/virtualenv  
+virtualenv --python=/usr/bin/pythonX.Y /home/myusername/path/to/virtualenv
 or, with virtualenvwrappper  
   
 mkvirtualenv --python=/usr/bin/pythonX.Y my-virtualenv-name  
-
+  
 2) Reinstall your packages  
   
 pip install -r tmp/requirements.txt  # or path to your existing requirements.txt  
