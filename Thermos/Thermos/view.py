@@ -5,6 +5,7 @@ from flask_sqlalchemy import SQLAlchemy
 
 from flask_login import LoginManager, login_required, login_user, current_user, logout_user
 from flask.ext.moment import Moment
+from flask_debugtoolbar import DebugToobarExtension
 
 from flask import render_template, url_for, request, redirect, flash, abort
 
@@ -28,6 +29,9 @@ login_manager = LoginManager()
 login_manager.session_protection = "strong"
 login_manager.login_view = "login"
 login_manager.init_app(app)
+
+#enable debug toolbar
+toolbar = DebugToobarExtension(app)
 
 #for displaying the timestamps
 moment = Moment(app)
