@@ -1,8 +1,13 @@
 from view import app, db
-from models import User
+from models import User, Bookmark
 from flask.ext.script import Manager, prompt_bool
+from flask.ext.migrate import Migrate, MigrateCommand
 
 manager = Manager(app)
+migrate = Migrate(app,db)
+
+manager.add_command('db', MigrateCommand)
+
 
 @manager.command
 def initdb():
