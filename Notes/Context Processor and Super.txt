@@ -1,0 +1,13 @@
+Context Processor and Super
+
+
+--->> Inject variables into template Context
+
+A function that returns a dict
+Will be run before each template is loaded
+Contents of dict are added to template context
+Annotate with @app.context_processor
+
+--->> Calling super() inside a {% block %}
+
+Will insert contents of parent block
