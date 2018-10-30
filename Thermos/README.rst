@@ -27,3 +27,9 @@ mkvirtualenv --python=/usr/bin/pythonX.Y my-virtualenv-name
 2) Reinstall your packages  
   
 pip install -r tmp/requirements.txt  # or path to your existing requirements.txt  
+  
+Due to security issues raised by github removed requests package installation details. There by, one need to install it explicitely.  
+  
+Details of which can be found as :
+Package : request  
+Version : 2.18.4
